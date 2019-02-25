@@ -12,7 +12,7 @@ const LoginForm = () => {
           <label>Password</label>
         <input type="password" />
         </div>
-        <button class="ui button" type="submit">Log in</button>
+        <button className="ui button" type="submit">Log in</button>
       </form>
     </div>
   );
