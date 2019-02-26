@@ -1,9 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import patients from '../apis/patients';
 
 class PatientEdit extends React.Component {
   state = {
-    patient: null,
+    // TODO: How do we handle thie ID?
+    id: '',
+    firstName: '',
+    lastName: '',
+    age: '',
+    emailAddress: '',
+    address: '',
   };
 
   fetchPatient = async id => {
@@ -14,14 +21,35 @@ class PatientEdit extends React.Component {
     return response.data.patient;
   };
 
+  updatePatient = async (id, body) => {
+    const response = await patients.put('/patients/' + id);
+    console.log('response', response);
+    if (response.status !== 200) throw Error('ERROR');
+
+    return response.data.patient;
+  };
+
   async componentDidMount() {
     const { id } = this.props.match.params;
     try {
-      this.setState({ patient: await this.fetchPatient(id) });
+      const patient = await this.fetchPatient(id);
+      this.setState({ ...patient });
     } catch (error) {
       console.error(error);
     }
   }
+
+  handleSubmit = async e => {
+    e.preventDefault();
+    console.log('submit', this.state);
+    try {
+      await this.updatePatient(this.state.id, this.state);
+      // TODO: use the real ID
+      this.props.history.push('/patients/1');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   renderNotFound() {
     return (
@@ -34,15 +62,29 @@ class PatientEdit extends React.Component {
     );
   }
 
+  // TODO: Maybe make this show up if something goes
+  //       wrong?
+  renderError() {
+    return (
+      <div className="ui container">
+        <div className="ui negative message">
+          <div className="header">Error</div>
+          <p>Sorry, could not update patient record</p>
+        </div>
+      </div>
+    );
+  }
+
   render() {
-    const { patient } = this.state;
-    console.log('patient', patient);
-    if (!patient) {
+    if (!this.state.emailAddress) {
       return this.renderNotFound();
     }
+
+    const { firstName, lastName, age, emailAddress, address } = this.state;
+
     return (
       <div className="ui container segment">
-        <form className="ui form">
+        <form className="ui form" onSubmit={this.handleSubmit}>
           <div className="ui dividing header">Patient Information</div>
           <div className="field">
             <label>Name</label>
@@ -52,7 +94,8 @@ class PatientEdit extends React.Component {
                   type="text"
                   name="first_name"
                   placeholder="First Name"
-                  value={patient.firstName}
+                  value={firstName}
+                  onChange={e => this.setState({ firstName: e.target.value })}
                 />
               </div>
               <div className="field">
@@ -60,7 +103,8 @@ class PatientEdit extends React.Component {
                   type="text"
                   name="last_name"
                   placeholder="Last Name"
-                  value={patient.lastName}
+                  value={lastName}
+                  onChange={e => this.setState({ lastName: e.target.value })}
                 />
               </div>
             </div>
@@ -71,7 +115,8 @@ class PatientEdit extends React.Component {
               type="text"
               name="age"
               placeholder="Age"
-              value={patient.age}
+              value={age}
+              onChange={e => this.setState({ age: e.target.value })}
             />
           </div>
           <div className="field">
@@ -80,7 +125,8 @@ class PatientEdit extends React.Component {
               type="text"
               name="email_address"
               placeholder="Email Address"
-              value={patient.emailAddress}
+              value={emailAddress}
+              onChange={e => this.setState({ emailAddress: e.target.value })}
             />
           </div>
           <div className="field">
@@ -89,11 +135,14 @@ class PatientEdit extends React.Component {
               type="text"
               name="address"
               placeholder="Mailing Address"
-              value={patient.address}
+              value={address}
+              onChange={e => this.setState({ address: e.target.value })}
             />
           </div>
           <div className="extra content">
-            <button className="ui button">Cancel</button>
+            <Link to="/patients/" className="ui button">
+              Cancel
+            </Link>
             <button className="ui primary button">Save</button>
           </div>
         </form>

@@ -2,6 +2,7 @@ const faker = require('faker');
 
 module.exports = (req, res, next) => {
   const patient = ({
+    id: faker.random.uuid(),
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     age: faker.random.number({ min: 21, max: 80 }),
