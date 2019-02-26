@@ -1,4 +1,5 @@
 module.exports = {
+  bodyLimit: '100kb',
   cors: {
     credentials: true,
     origin: [
