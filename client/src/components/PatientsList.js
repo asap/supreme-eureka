@@ -2,6 +2,9 @@ import React from 'react';
 import patients from '../apis/patients';
 import uuidv4 from 'uuid/v4';
 
+import withAuth from './withAuth';
+import withUser from './withUser';
+
 class PatientsList extends React.Component {
   state = {
     patients: [],
@@ -58,4 +61,8 @@ class PatientsList extends React.Component {
   }
 }
 
-export default PatientsList;
+const ComponentWithAuth = withAuth({
+  redirectLocation: '/'
+})(PatientsList);
+
+export default withUser(ComponentWithAuth);

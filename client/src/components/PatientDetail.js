@@ -1,6 +1,9 @@
 import React from 'react';
 import patients from '../apis/patients';
 
+import withAuth from './withAuth';
+import withUser from './withUser';
+
 class PatientDetail extends React.Component {
   state = {
     patient: null,
@@ -76,4 +79,8 @@ class PatientDetail extends React.Component {
   }
 }
 
-export default PatientDetail;
+const ComponentWithAuth = withAuth({
+  redirectLocation: '/'
+})(PatientDetail);
+
+export default withUser(ComponentWithAuth);

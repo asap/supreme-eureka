@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import patients from '../apis/patients';
 
+import withAuth from './withAuth';
+import withUser from './withUser';
+
 class PatientEdit extends React.Component {
   state = {
     // TODO: How do we handle thie ID?
@@ -150,4 +153,9 @@ class PatientEdit extends React.Component {
     );
   }
 }
-export default PatientEdit;
+
+const ComponentWithAuth = withAuth({
+  redirectLocation: '/'
+})(PatientEdit);
+
+export default withUser(ComponentWithAuth);
