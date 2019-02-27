@@ -2,6 +2,8 @@
 
 const bcrypt = require('bcrypt');
 
+// const { Patient } = './';
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     'User',
@@ -10,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       lastName: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
+      phone: DataTypes.STRING,
       type: DataTypes.STRING,
     },
     {
@@ -26,5 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   User.prototype.validPassword = function(password) {
     return bcrypt.compare(password, this.password);
   };
+
+  // User.hasOne(Patient);
   return User;
 };

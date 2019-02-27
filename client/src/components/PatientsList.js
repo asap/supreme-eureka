@@ -50,7 +50,7 @@ class PatientsList extends React.Component {
                   {patient.firstName} {patient.lastName}
                 </td>
                 <td>{patient.age}</td>
-                <td>{patient.phoneNumber}</td>
+                <td>{patient.phone}</td>
                 <td>{patient.address}</td>
               </tr>
             ))}

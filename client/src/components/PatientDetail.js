@@ -55,13 +55,13 @@ class PatientDetail extends React.Component {
           </div>
           <div className="content">
             <div className="meta">
-              <span className="email">{patient.emailAddress}</span>
+              <span className="email">{patient.email}</span>
             </div>
             <div className="description">
               <div className="ui list">
                 <div className="item">
                   <i className="phone icon" />
-                  <div className="content">{patient.phoneNumber}</div>
+                  <div className="content">{patient.phone}</div>
                 </div>
                 <div className="item">
                   <i className="marker icon" />

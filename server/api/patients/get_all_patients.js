@@ -1,14 +1,18 @@
 const faker = require('faker');
 
-module.exports = (req, res, next) => {
-  const patients = [...Array(10)].map((_, i) => ({
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    age: faker.random.number({ min: 21, max: 80 }),
-    emailAddress: faker.internet.exampleEmail(),
-    phoneNumber: faker.phone.phoneNumberFormat(1),
-    address: faker.address.streetAddress('###'),
-  }));
+const { Patient, User } = require('../../db/models');
 
-  return res.json({ patients });
+module.exports = async (req, res, next) => {
+  // The controller is "flattening" the Patient/User
+  // association to simplify the resource for consumers
+  // Ideally, this might be done in an Entity Model
+  // rather than in the DB model or a controller
+  // Also, we should not return the password for
+  // a user, obviously!
+
+  const patients = await Patient.findAll();
+
+  const patientsList = patients.map(patient => patient.flattenJSON());
+
+  return res.json({ patients: patientsList });
 };
