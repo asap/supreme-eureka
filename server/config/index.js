@@ -1,3 +1,5 @@
+const db = require ('./db');
+
 module.exports = {
   bodyLimit: '100kb',
   cors: {
@@ -9,4 +11,5 @@ module.exports = {
       'http://127.0.0.1:3001',
     ],
   },
+  db,
 };
