@@ -8,10 +8,10 @@ const loggedInButtons = actions => (
     <Link to="/patients" className="item">
       Patients List
     </Link>
-    <Link to="/patients/1" className="item">
+    <Link to="/patients/:id" className="item">
       Patients Detail
     </Link>
-    <Link to="/patients/edit/1" className="item">
+    <Link to="/patients/:id/edit" className="item">
       Edit Patient
     </Link>
     <Link to="" onClick={actions.onLogout} className="item">

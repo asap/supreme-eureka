@@ -18,7 +18,7 @@ const App = () => {
               <Route path="/" exact component={LoginForm} />
               <Route path="/patients/" exact component={PatientsList} />
               <Route path="/patients/:id" exact component={PatientDetail} />
-              <Route path="/patients/edit/:id" exact component={PatientEdit} />
+              <Route path="/patients/:id/edit" exact component={PatientEdit} />
             </Switch>
           </UserProvider>
         </div>

@@ -20,7 +20,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon server/index.js",
     "client": "cd client && npm run start",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "db:seed": "node_modules/.bin/sequelize db:seed:undo:all && node_modules/.bin/sequelize db:seed:all",
+    "db:migrate": "node_modules/.bin/sequelize db:migrate",
+    "db:rollback": "node_modules/.bin/sequelize db:migrate:undo",
+    "db:rollback:all": "node_modules/.bin/sequelize db:migrate:undo:all"
   },
   "repository": {
     "type": "git",

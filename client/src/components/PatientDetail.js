@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import patients from '../apis/patients';
 
 import withAuth from './withAuth';
@@ -71,7 +72,9 @@ class PatientDetail extends React.Component {
             </div>
           </div>
           <div className="extra content">
-            <button className="ui primary button">Edit Patient Details</button>
+            <Link to={`/patients/${patient.id}/edit`} className="ui button primary">
+              Edit Patient Details
+            </Link>
           </div>
         </div>
       </div>
@@ -79,8 +82,9 @@ class PatientDetail extends React.Component {
   }
 }
 
-const ComponentWithAuth = withAuth({
-  redirectLocation: '/'
-})(PatientDetail);
-
-export default withUser(ComponentWithAuth);
+// const ComponentWithAuth = withAuth({
+//   redirectLocation: '/',
+// })(PatientDetail);
+//
+// export default withUser(ComponentWithAuth);
+export default PatientDetail;

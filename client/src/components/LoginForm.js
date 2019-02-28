@@ -22,8 +22,8 @@ class LoginForm extends React.Component {
       console.log('user', user);
       if (user && user.type) {
         if (user.type === 'patient') {
-          // this.props.history.push('/patients/' + user.id);
-          this.props.history.push('/patients/1');
+          this.props.history.push('/patients/' + user.id);
+          // this.props.history.push('/patients/1');
         } else if (user.type === 'doctor') {
           this.props.history.push('/patients/');
         }

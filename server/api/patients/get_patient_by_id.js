@@ -9,9 +9,13 @@ module.exports = async (req, res, next) => {
   // a user, obviously!
 
   const { id } = req.params;
-  const patient = await Patient.find({
+  const patient = await Patient.findOne({
     where: { id },
   });
+
+  if (!patient) {
+    return res.status(404).json({patient: null});
+  }
 
   return res.json({ patient: patient.flattenJSON() });
 };

@@ -30,10 +30,23 @@ module.exports = {
       updatedAt: new Date(),
     }));
 
+    const doctors = await queryInterface.sequelize.query(
+      `SELECT id from USERS where type='doctors';`,
+    );
+
+    const doctorRows = patients[0].map(user => ({
+      hospital: faker.company.companyName(0),
+      userId: user.id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }));
+
+    await queryInterface.bulkInsert('Doctors', doctorRows, {});
     return await queryInterface.bulkInsert('Patients', patientRows, {});
   },
 
   down: (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete('Doctors', null, {});
     return queryInterface.bulkDelete('Patients', null, {});
     return queryInterface.bulkDelete('Users', null, {});
   },

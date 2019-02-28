@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import patients from '../apis/patients';
 import uuidv4 from 'uuid/v4';
 
@@ -47,7 +48,7 @@ class PatientsList extends React.Component {
             {this.state.patients.map(patient => (
               <tr key={uuidv4()}>
                 <td>
-                  {patient.firstName} {patient.lastName}
+                  <Link to={`/patients/${patient.id}`}>{patient.firstName} {patient.lastName}</Link>
                 </td>
                 <td>{patient.age}</td>
                 <td>{patient.phone}</td>

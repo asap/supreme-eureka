@@ -7,16 +7,17 @@ import withUser from './withUser';
 
 class PatientEdit extends React.Component {
   state = {
-    // TODO: How do we handle thie ID?
+    // TODO: maybe refactor to a "patient" objerct?
     id: '',
     firstName: '',
     lastName: '',
     age: '',
-    emailAddress: '',
+    email: '',
     address: '',
   };
 
   fetchPatient = async id => {
+    console.log("fetching patient", id);
     const response = await patients.get('/patients/' + id);
     console.log('response', response);
     if (response.status !== 200) throw Error('ERROR');
@@ -25,7 +26,7 @@ class PatientEdit extends React.Component {
   };
 
   updatePatient = async (id, body) => {
-    const response = await patients.put('/patients/' + id);
+    const response = await patients.put('/patients/' + id, body);
     console.log('response', response);
     if (response.status !== 200) throw Error('ERROR');
 
@@ -33,9 +34,12 @@ class PatientEdit extends React.Component {
   };
 
   async componentDidMount() {
+    console.log("props", this.props.match);
     const { id } = this.props.match.params;
+    console.log("id", id);
     try {
       const patient = await this.fetchPatient(id);
+      console.log("got patient", patient);
       this.setState({ ...patient });
     } catch (error) {
       console.error(error);
@@ -47,8 +51,7 @@ class PatientEdit extends React.Component {
     console.log('submit', this.state);
     try {
       await this.updatePatient(this.state.id, this.state);
-      // TODO: use the real ID
-      this.props.history.push('/patients/1');
+      this.props.history.push(`/patients/${this.state.id}`);
     } catch (error) {
       console.error(error);
     }
@@ -79,11 +82,11 @@ class PatientEdit extends React.Component {
   }
 
   render() {
-    if (!this.state.emailAddress) {
+    if (!this.state.email) {
       return this.renderNotFound();
     }
 
-    const { firstName, lastName, age, emailAddress, address } = this.state;
+    const { firstName, lastName, age, email, address } = this.state;
 
     return (
       <div className="ui container segment">
@@ -128,8 +131,8 @@ class PatientEdit extends React.Component {
               type="text"
               name="email_address"
               placeholder="Email Address"
-              value={emailAddress}
-              onChange={e => this.setState({ emailAddress: e.target.value })}
+              value={email}
+              onChange={e => this.setState({ email: e.target.value })}
             />
           </div>
           <div className="field">
@@ -143,7 +146,7 @@ class PatientEdit extends React.Component {
             />
           </div>
           <div className="extra content">
-            <Link to="/patients/" className="ui button">
+            <Link to={`/patients/${this.state.id}`} className="ui button">
               Cancel
             </Link>
             <button className="ui primary button">Save</button>
@@ -154,8 +157,10 @@ class PatientEdit extends React.Component {
   }
 }
 
-const ComponentWithAuth = withAuth({
-  redirectLocation: '/'
-})(PatientEdit);
-
-export default withUser(ComponentWithAuth);
+// TODO: uncomment this
+// const ComponentWithAuth = withAuth({
+//   redirectLocation: '/'
+// })(PatientEdit);
+//
+// export default withUser(ComponentWithAuth);
+export default PatientEdit;

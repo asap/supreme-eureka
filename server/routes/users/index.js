@@ -9,7 +9,7 @@ const router = Router();
 
 router.get('/', async (req, res, next) => {
   const users = await User.findAll();
-  
+
   res.json({
     users,
   });
