@@ -17,7 +17,7 @@ class LoginForm extends React.Component {
     const password = e.target.elements.password.value;
 
     try {
-      const user = await actions.onLogin(username, password);
+      const user = await this.context.actions.onLogin(username, password);
       if (user && user.type) {
         // Redirect on log in
         if (user.type === 'patient') {
@@ -50,9 +50,7 @@ class LoginForm extends React.Component {
     return (
       <div className="ui container segment">
         {this.state.showErrorMessage && this.renderMessage()}
-        <form
-          className="ui form"
-          onSubmit={e => this.onSubmit(e, this.context.actions)}>
+        <form className="ui form" onSubmit={e => this.onSubmit(e)}>
           <div className="ui field">
             <label>Email</label>
             <input type="text" name="username" />

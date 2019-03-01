@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { UserContext } from './UserProvider';
 import patients from '../apis/patients';
 
 import withAuth from './withAuth';
 import withUser from './withUser';
 
 class PatientDetail extends React.Component {
+  static contextType = UserContext;
   state = {
     patient: null,
   };
@@ -36,6 +38,19 @@ class PatientDetail extends React.Component {
       </div>
     );
   }
+
+  maybeRenderEditButton = id => {
+    if (this.context.userType !== 'patient') {
+      return;
+    }
+    return (
+      <div className="extra content">
+        <Link to={`/patients/${id}/edit`} className="ui button primary">
+          Edit Patient Details
+        </Link>
+      </div>
+    );
+  };
 
   render() {
     const { patient } = this.state;
@@ -69,11 +84,7 @@ class PatientDetail extends React.Component {
               </div>
             </div>
           </div>
-          <div className="extra content">
-            <Link to={`/patients/${patient.id}/edit`} className="ui button primary">
-              Edit Patient Details
-            </Link>
-          </div>
+          {this.maybeRenderEditButton(patient.id)}
         </div>
       </div>
     );
