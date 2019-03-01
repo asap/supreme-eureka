@@ -2,7 +2,7 @@
 .DS_Store
 
 # DB
-*.sqlite3
+*.sqlite
 
 # Logs
 logs
