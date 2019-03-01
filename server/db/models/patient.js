@@ -1,7 +1,5 @@
 'use strict';
 
-const { User } = './user';
-
 module.exports = (sequelize, DataTypes) => {
   const Patient = sequelize.define(
     'Patient',
@@ -22,13 +20,8 @@ module.exports = (sequelize, DataTypes) => {
   );
   Patient.associate = function(models) {
     // associations can be defined here
-    // Patient.belongsTo(models.User, { foreignKey: 'id' });
+
     Patient.belongsTo(models.User);
-    // Patient.hasOne(models.User, { foreignKey: 'userId' });
-// db.User.hasOne(db.Patient);
-// db.User.hasOne(db.Doctor);
-// db.Patient.belongsTo(db.User);
-// db.Doctor.belongsTo(db.User);
   };
   Patient.prototype.flattenJSON = function() {
     // I considered just overriding the toJSON

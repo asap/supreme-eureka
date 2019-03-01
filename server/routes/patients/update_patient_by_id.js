@@ -6,9 +6,10 @@ module.exports = async (req, res, next) => {
   // I want to explicitly define what fields I'm allowing
   // to be modified
   const { age, firstName, lastName, email, phone, address } = req.body;
+  let patient;
 
   try {
-    const patient = await Patient.findOne({
+    patient = await Patient.findOne({
       where: { id },
     });
 

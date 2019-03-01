@@ -19,13 +19,6 @@ module.exports = (sequelize, DataTypes) => {
   Doctor.associate = function(models) {
     // associations can be defined here
     Doctor.belongsTo(models.User);
-    // Doctor.belongsTo(models.User, {as: 'doctor', foreignKey: 'doctor_id'});
-    // Doctor.belongsTo(models.User, {foreignKey: 'id'});
-    // Doctor.hasOne(models.User, { foreignKey: 'userId' });
-// db.User.hasOne(db.Patient);
-// db.User.hasOne(db.Doctor);
-// db.Patient.belongsTo(db.User);
-// db.Doctor.belongsTo(db.User);
   };
   Doctor.prototype.flattenJSON = function() {
     // I considered just overriding the toJSON
