@@ -14,4 +14,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(router);
 
+// simple error handler
+app.use((error, req, res, next) => {
+  console.error("Error Detected:", error);
+  const { errorStatusCode, errorMessage, errorResponse } = error;
+  return res.status(errorStatusCode).json({ errorMessage, errorResponse });
+});
+
 module.exports = app;

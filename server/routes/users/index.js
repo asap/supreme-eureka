@@ -1,19 +1,8 @@
 const { Router } = require('express');
-const { User } = require('../../db/models');
-
-const {
-  loginUser,
-} = require('../../api/users');
+const loginUserByEmail = require('./login_user_by_email');
 
 const router = Router();
 
-router.get('/', async (req, res, next) => {
-  const users = await User.findAll();
-
-  res.json({
-    users,
-  });
-});
-router.post('/login', loginUser);
+router.post('/login', loginUserByEmail);
 
 module.exports = router;

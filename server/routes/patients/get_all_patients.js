@@ -1,6 +1,6 @@
 const faker = require('faker');
 
-const { Patient, User } = require('../../db/models');
+const { Patient } = require('../../db/models');
 
 module.exports = async (req, res, next) => {
   // The controller is "flattening" the Patient/User
@@ -12,7 +12,15 @@ module.exports = async (req, res, next) => {
 
   const patients = await Patient.findAll();
 
-  const patientsList = patients.map(patient => patient.flattenJSON());
+  try {
+    const patientsList = patients.map(patient => patient.flattenJSON());
 
-  return res.json({ patients: patientsList });
+    return res.json({ patients: patientsList });
+  } catch (error) {
+    next({
+      errorStatusCode: 500,
+      errorMessage: 'Unknown Error',
+      errorResponse: error,
+    });
+  }
 };
