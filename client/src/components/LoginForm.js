@@ -13,17 +13,15 @@ class LoginForm extends React.Component {
 
   onSubmit = async (e, actions) => {
     e.preventDefault();
-    console.log('submit props', this.props);
     const username = e.target.elements.username.value;
     const password = e.target.elements.password.value;
-    console.log('trying username', username);
+
     try {
       const user = await actions.onLogin(username, password);
-      console.log('user', user);
       if (user && user.type) {
+        // Redirect on log in
         if (user.type === 'patient') {
           this.props.history.push('/patients/' + user.id);
-          // this.props.history.push('/patients/1');
         } else if (user.type === 'doctor') {
           this.props.history.push('/patients/');
         }

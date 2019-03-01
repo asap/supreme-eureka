@@ -3,18 +3,17 @@ import { Link } from 'react-router-dom';
 
 import withUser from './withUser';
 
-const loggedInButtons = actions => (
+const doctorAdminButtons = () => (
   <>
     <Link to="/patients" className="item">
       Patients List
     </Link>
-    <Link to="/patients/:id" className="item">
-      Patients Detail
-    </Link>
-    <Link to="/patients/:id/edit" className="item">
-      Edit Patient
-    </Link>
-    <Link to="" onClick={actions.onLogout} className="item">
+  </>
+);
+
+const loggedInButtons = actions => (
+  <>
+    <Link to="" onClick={actions.onLogout} className="red active item">
       Log Out
     </Link>
   </>
@@ -29,15 +28,23 @@ const loggedOutButtons = actions => (
 );
 
 const Header = props => {
-  console.log('props', props);
-  const { isLoggedIn, actions } = props;
+  const { userType, isLoggedIn, actions } = props;
+  let doctorButtons;
   let buttons;
   if (isLoggedIn) {
     buttons = loggedInButtons(actions);
   } else {
     buttons = loggedOutButtons(actions);
   }
-  return <div className="ui secondary pointing menu">{buttons}</div>;
+  if (userType === 'doctor') {
+    doctorButtons = doctorAdminButtons();
+  }
+  return (
+    <div className="ui secondary menu">
+      {buttons}
+      {doctorButtons}
+    </div>
+  );
 };
 
 export default withUser(Header);

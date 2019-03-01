@@ -12,7 +12,6 @@ class PatientDetail extends React.Component {
 
   fetchPatient = async id => {
     const response = await patients.get('/patients/' + id);
-    console.log('response', response);
     if (response.status !== 200) throw Error('ERROR');
 
     return response.data.patient;
@@ -40,7 +39,6 @@ class PatientDetail extends React.Component {
 
   render() {
     const { patient } = this.state;
-    console.log('patient', patient);
     if (!patient) {
       return this.renderNotFound();
     }
@@ -82,9 +80,8 @@ class PatientDetail extends React.Component {
   }
 }
 
-// const ComponentWithAuth = withAuth({
-//   redirectLocation: '/',
-// })(PatientDetail);
-//
-// export default withUser(ComponentWithAuth);
-export default PatientDetail;
+const ComponentWithAuth = withAuth({
+  redirectLocation: '/',
+})(PatientDetail);
+
+export default withUser(ComponentWithAuth);

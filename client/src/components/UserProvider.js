@@ -6,6 +6,7 @@ export const UserContext = React.createContext({});
 class UserProvider extends React.Component {
   state = {
     isLoggedIn: false,
+    userType: '',
   };
 
   get actions() {
@@ -20,22 +21,20 @@ class UserProvider extends React.Component {
       username,
       password,
     });
-    console.log('response', response);
+
     if (response.status !== 200) throw Error('ERROR');
 
     return response.data.user;
   };
 
   handleLogin = async (username, password) => {
-    console.log('logging in user', username);
     try {
       const user = await this.authenticateUser(username, password);
-      console.log('found user', user);
 
       if (user) {
         this.setState({
-          user,
           isLoggedIn: true,
+          userType: user.type,
         });
       }
       return user;
@@ -43,18 +42,18 @@ class UserProvider extends React.Component {
       throw new Error(error);
     }
   };
-  // TODO: Should kill session on server
-  handleLogout = () => this.setState({ user: null, isLoggedIn: false });
+
+  handleLogout = () => this.setState({ userType: '', isLoggedIn: false });
 
   render() {
-    const { isLoggedIn } = this.state;
+    const { isLoggedIn, userType } = this.state;
     const { children } = this.props;
-    console.log("this.props", this.props);
 
     return (
       <UserContext.Provider
         value={{
           isLoggedIn,
+          userType,
           actions: this.actions,
         }}>
         {children}

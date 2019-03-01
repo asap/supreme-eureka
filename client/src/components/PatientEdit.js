@@ -7,7 +7,6 @@ import withUser from './withUser';
 
 class PatientEdit extends React.Component {
   state = {
-    // TODO: maybe refactor to a "patient" objerct?
     id: '',
     firstName: '',
     lastName: '',
@@ -17,9 +16,7 @@ class PatientEdit extends React.Component {
   };
 
   fetchPatient = async id => {
-    console.log("fetching patient", id);
     const response = await patients.get('/patients/' + id);
-    console.log('response', response);
     if (response.status !== 200) throw Error('ERROR');
 
     return response.data.patient;
@@ -27,19 +24,15 @@ class PatientEdit extends React.Component {
 
   updatePatient = async (id, body) => {
     const response = await patients.put('/patients/' + id, body);
-    console.log('response', response);
     if (response.status !== 200) throw Error('ERROR');
 
     return response.data.patient;
   };
 
   async componentDidMount() {
-    console.log("props", this.props.match);
     const { id } = this.props.match.params;
-    console.log("id", id);
     try {
       const patient = await this.fetchPatient(id);
-      console.log("got patient", patient);
       this.setState({ ...patient });
     } catch (error) {
       console.error(error);
@@ -48,7 +41,6 @@ class PatientEdit extends React.Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    console.log('submit', this.state);
     try {
       await this.updatePatient(this.state.id, this.state);
       this.props.history.push(`/patients/${this.state.id}`);
@@ -63,19 +55,6 @@ class PatientEdit extends React.Component {
         <div className="ui negative message">
           <div className="header">Patient Not Found</div>
           <p>Sorry, we can't find this patient</p>
-        </div>
-      </div>
-    );
-  }
-
-  // TODO: Maybe make this show up if something goes
-  //       wrong?
-  renderError() {
-    return (
-      <div className="ui container">
-        <div className="ui negative message">
-          <div className="header">Error</div>
-          <p>Sorry, could not update patient record</p>
         </div>
       </div>
     );
@@ -157,10 +136,8 @@ class PatientEdit extends React.Component {
   }
 }
 
-// TODO: uncomment this
-// const ComponentWithAuth = withAuth({
-//   redirectLocation: '/'
-// })(PatientEdit);
-//
-// export default withUser(ComponentWithAuth);
-export default PatientEdit;
+const ComponentWithAuth = withAuth({
+  redirectLocation: '/'
+})(PatientEdit);
+
+export default withUser(ComponentWithAuth);
