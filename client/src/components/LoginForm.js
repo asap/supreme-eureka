@@ -25,6 +25,8 @@ class LoginForm extends React.Component {
         } else if (user.type === 'doctor') {
           this.props.history.push('/patients/');
         }
+
+        return;
       }
     } catch (error) {
       console.log(error);
