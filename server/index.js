@@ -1,9 +1,10 @@
 const app = require('./app');
-const port = 3001;
+const port = 5000;
+// const port = 3001;
 
-app.get('/', (req, res) => {
-  res.send(`PORT ${port}`);
-});
+// app.get('/', (req, res) => {
+//   res.send(`PORT ${port}`);
+// });
 
 app.listen(port, err => {
   if (err) {
