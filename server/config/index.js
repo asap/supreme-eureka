@@ -3,6 +3,7 @@ require('dotenv').config();
 const db = require ('./db');
 
 module.exports = {
+  port: 5000,
   bodyLimit: '100kb',
   cors: {
     credentials: true,
