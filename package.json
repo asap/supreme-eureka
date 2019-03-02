@@ -32,13 +32,9 @@
     "install:client":
       "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "install:server": "npm install",
-    "start:old":
-      "concurrently --kill-others-on-fail \"npm run server:prod\" \"npm run client\"",
     "start": "npm run server:prod",
     "dev:pre":
       "concurrently --kill-others-on-fail \"npm run server:dev\" \"npm run client\"",
-    "dev":
-      "concurrently --kill-others \"webpack --watch\" \"npm run server:dev\" \"npm run client\"",
     "db:seed":
       "node_modules/.bin/sequelize db:seed:undo:all && node_modules/.bin/sequelize db:seed:all",
     "db:migrate": "node_modules/.bin/sequelize db:migrate",
