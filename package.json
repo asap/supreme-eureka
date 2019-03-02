@@ -24,7 +24,8 @@
     "server:dev": "nodemon server/index.js",
     "server:prod": "node server/index.js",
     "client": "npm run start --prefix client",
-    "install:client": "cd client && npm install",
+    "build": "npm run build --prefix client",
+    "install:client": "npm install --prefix client",
     "install:server": "npm install",
     "start": "concurrently --kill-others-on-fail \"npm run server:prod\" \"npm run client\"",
     "dev:pre": "concurrently --kill-others-on-fail \"npm run server:dev\" \"npm run client\"",
@@ -33,6 +34,7 @@
     "db:migrate": "node_modules/.bin/sequelize db:migrate",
     "db:rollback": "node_modules/.bin/sequelize db:migrate:undo",
     "db:rollback:all": "node_modules/.bin/sequelize db:migrate:undo:all",
+    "postinstall": "npm run build",
     "heroku-postbuild": "npm run install:client && npm run install:server"
   },
   "repository": {
