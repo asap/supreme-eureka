@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 module.exports = {
-  PORT: '5000',
+  PORT: process.env.PORT,
   BASE_URL: process.env.REACT_APP_ROOT,
 }
 
