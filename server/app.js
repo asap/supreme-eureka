@@ -14,9 +14,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(router);
 
-// Serve up react app
-app.use('/', express.static(__dirname + '/client/build'));
-
 // simple error handler
 app.use((error, req, res, next) => {
   console.error("Error Detected:", error);

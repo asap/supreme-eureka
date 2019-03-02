@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 const router = express.Router();
 
@@ -10,5 +11,8 @@ router.get('/api/ping', (req, res) => res.json({ status: 'pong' }));
 
 router.use('/api/patients/', patients);
 router.use('/api/users/', users);
+
+// Serve up react app
+router.use('/', express.static(path.join(__dirname, '../../client/build')));
 
 module.exports = router;
