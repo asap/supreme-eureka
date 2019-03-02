@@ -31,14 +31,26 @@ Technical Requirements
 
 ## Getting Started
 
-To avoid any problems installing packages, I'd recommend installing the client and server separately.
+To run locally, you need to do the following actions:
+
+* `cp client/.env.sample client/.env`
+* Update `client/.env` to add `PORT=5000`
+
+I'd recommend using [NVM](https://github.com/creationix/nvm) to make sure you don't have any problems with your version of Node.
+
+* run `nvm use` in the root of the project
+
+Install packages and set up DB
 
 * `npm run install:client`
 * `npm run install:server`
+* `npm run:migrate`
+* `npm run:seed`
 
 Start the project
 
-* `npm run dev`
+* `npm run dev` (dev mode)
+* `npm start` (prod mode)
 
 ## Usage
 
