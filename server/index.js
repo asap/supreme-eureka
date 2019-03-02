@@ -1,9 +1,7 @@
 const app = require('./app');
-const port = 3001;
+const config = require('./config');
 
-app.get('/', (req, res) => {
-  res.send(`PORT ${port}`);
-});
+const port = Number(process.env.PORT || config.port);
 
 app.listen(port, err => {
   if (err) {

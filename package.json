@@ -8,6 +8,7 @@
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "faker": "^4.1.0",
     "nodemon": "^1.18.10",
@@ -15,20 +16,32 @@
     "sequelize-cli": "^5.4.0",
     "sqlite3": "^4.0.6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack": "4.28.3"
+  },
+  "engines": {
+    "node": "8.12.0",
+    "npm": "6.6.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server:dev": "nodemon server/index.js",
     "server:prod": "node server/index.js",
-    "client": "cd client && npm run start",
-    "install:client": "cd client && npm install",
-    "install:server": "npm i && npm run db:migrate && npm run db:seed",
-    "start": "concurrently --kill-others-on-fail \"npm run server:prod\" \"npm run client\"",
-    "dev": "concurrently --kill-others-on-fail \"npm run server:dev\" \"npm run client\"",
-    "db:seed": "node_modules/.bin/sequelize db:seed:undo:all && node_modules/.bin/sequelize db:seed:all",
+    "client": "npm run start --prefix client",
+    "build": "npm run build --prefix client",
+    "install:client":
+      "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
+    "install:server": "npm install",
+    "start": "npm run server:prod",
+    "dev:pre":
+      "concurrently --kill-others-on-fail \"npm run server:dev\" \"npm run client\"",
+    "db:seed":
+      "node_modules/.bin/sequelize db:seed:undo:all && node_modules/.bin/sequelize db:seed:all",
     "db:migrate": "node_modules/.bin/sequelize db:migrate",
     "db:rollback": "node_modules/.bin/sequelize db:migrate:undo",
-    "db:rollback:all": "node_modules/.bin/sequelize db:migrate:undo:all"
+    "db:rollback:all": "node_modules/.bin/sequelize db:migrate:undo:all",
+    "postinstall": "npm run install:client",
+    "heroku-postbuild": "npm run db:migrate && npm run db:seed"
   },
   "repository": {
     "type": "git",
