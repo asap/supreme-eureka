@@ -19,6 +19,10 @@
   "devDependencies": {
     "webpack": "4.28.3"
   },
+  "engines": {
+    "node": "8.9.0",
+    "npm": "6.6.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server:dev": "nodemon server/index.js",
