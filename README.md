@@ -16,7 +16,8 @@ Functional Requirements
 * Doctors and Patients sign in with username / password credentials
 * The system recognizes the user as either a doctor or a patient
 * Upon signing in, doctors see a listing of patients in the system.
-* Doctors can also search for patients by name. ● When a doctor selects a patient:
+* Doctors can also search for patients by name.
+* When a doctor selects a patient:
 * The patient’s personal details are displayed.
 * Upon signing in, patients see an overview of their information in the system:
 * Their personal details are displayed, able to be edited.
