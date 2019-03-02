@@ -29,7 +29,8 @@
     "db:seed": "node_modules/.bin/sequelize db:seed:undo:all && node_modules/.bin/sequelize db:seed:all",
     "db:migrate": "node_modules/.bin/sequelize db:migrate",
     "db:rollback": "node_modules/.bin/sequelize db:migrate:undo",
-    "db:rollback:all": "node_modules/.bin/sequelize db:migrate:undo:all"
+    "db:rollback:all": "node_modules/.bin/sequelize db:migrate:undo:all",
+    "heroku-postbuild": "npm run install:client"
   },
   "repository": {
     "type": "git",
